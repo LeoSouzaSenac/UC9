@@ -1,6 +1,6 @@
 ### 🎯 **Projeto: Gerenciador de Tarefas (Task Manager)**
 📌 **Descrição:**  
-Os alunos desenvolverão um sistema onde os usuários podem adicionar, editar, excluir e listar tarefas. Cada tarefa terá um título, descrição, data de vencimento e status (pendente/concluído).
+Os grupos desenvolverão um sistema onde os usuários podem adicionar, editar, excluir e listar tarefas. Cada tarefa terá um título, descrição, data de vencimento e status (pendente/concluído).
 
 ---
 
