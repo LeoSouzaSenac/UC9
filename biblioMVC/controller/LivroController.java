@@ -8,6 +8,7 @@ package biblioMVC.controller;
 import biblioMVC.model.Livro;
 import biblioMVC.model.LivroDAO;
 import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -41,7 +42,47 @@ public class LivroController {
             return "Erro: " + e.getMessage();
         }
     }
-    
+   // Método que recebe os dados de LivroDAO e os formata para enviarmos para a view 
+   public ArrayList<String> listarLivros() {
+       
+       // Crio um arrayList de strings para receber os dados tratados
+        ArrayList<String> listaFormatada = new ArrayList<>();
+        try {
+            // o ArrayList livros recebe os dados de livroDAO, ainda sem tratamento
+            ArrayList<Livro> livros = livroDAO.listarLivros();
+            
+            // Processando os dados antes de enviar para a View
+            for (Livro livro : livros) {
+                String detalhes = "ID: " + livro.getId() + " | " +
+                                  "Título: " + livro.getTitulo() + " | " +
+                                  "Autor: " + livro.getAutor() + " | " +
+                                  "Ano: " + livro.getAno();
+                listaFormatada.add(detalhes);
+            }
+        } catch (Exception e) {
+            listaFormatada.add("Erro ao recuperar os livros: " + e.getMessage());
+        }
+        return listaFormatada;
+    }
+   
+   public String deletarLivro(int index) {
+    try {
+        ArrayList<Livro> livros = livroDAO.listarLivros();
+
+        // Verifica se o índice selecionado é válido
+        if (index >= 0 && index < livros.size()) {
+            int idLivro = livros.get(index).getId(); // Obtém o ID do livro correspondente ao índice
+            livroDAO.deletarLivro(idLivro); // Deleta o livro pelo ID
+            return "Livro deletado com sucesso!";
+        } else {
+            return "Erro: Índice inválido!";
+        }
+    } catch (Exception e) {
+        return "Erro ao deletar livro: " + e.getMessage();
+    }
+}
+   
+  
 
 
 }

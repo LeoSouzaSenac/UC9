@@ -7,7 +7,9 @@ package biblioMVC.view;
 
 import biblioMVC.controller.LivroController;
 import biblioMVC.model.Livro;
+import java.util.ArrayList;
 import java.util.List;
+import javax.swing.DefaultListModel;
 import javax.swing.JOptionPane;
 
 /**
@@ -17,13 +19,14 @@ import javax.swing.JOptionPane;
 public class FrmLivro extends javax.swing.JFrame {
 
     private LivroController livroController;
-    
+    DefaultListModel<String> modelo = new DefaultListModel<>();
     /**
      * Creates new form FrmLivro
      */
     public FrmLivro() {
         initComponents();
         livroController = new LivroController();
+        lista.setModel(modelo);
     }
 
     /**
@@ -42,9 +45,10 @@ public class FrmLivro extends javax.swing.JFrame {
         txtAno = new javax.swing.JTextField();
         jLabel3 = new javax.swing.JLabel();
         btnAdicionar = new javax.swing.JButton();
-        jScrollPane1 = new javax.swing.JScrollPane();
-        txtLista = new javax.swing.JTextArea();
         btnListar = new javax.swing.JButton();
+        jScrollPane2 = new javax.swing.JScrollPane();
+        lista = new javax.swing.JList<>();
+        btnDeletar = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -79,14 +83,19 @@ public class FrmLivro extends javax.swing.JFrame {
             }
         });
 
-        txtLista.setColumns(20);
-        txtLista.setRows(5);
-        jScrollPane1.setViewportView(txtLista);
-
         btnListar.setText("Listar");
         btnListar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnListarActionPerformed(evt);
+            }
+        });
+
+        jScrollPane2.setViewportView(lista);
+
+        btnDeletar.setText("Deletar");
+        btnDeletar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnDeletarActionPerformed(evt);
             }
         });
 
@@ -107,11 +116,13 @@ public class FrmLivro extends javax.swing.JFrame {
                             .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                             .addComponent(txtTitulo, javax.swing.GroupLayout.PREFERRED_SIZE, 111, javax.swing.GroupLayout.PREFERRED_SIZE)))
                     .addComponent(btnAdicionar, javax.swing.GroupLayout.PREFERRED_SIZE, 111, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 40, Short.MAX_VALUE)
+                .addGap(35, 35, 35)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 180, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(btnListar, javax.swing.GroupLayout.PREFERRED_SIZE, 111, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(38, 38, 38))
+                    .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 177, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                        .addComponent(btnDeletar, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(btnListar, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 111, Short.MAX_VALUE)))
+                .addContainerGap(49, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -130,12 +141,14 @@ public class FrmLivro extends javax.swing.JFrame {
                         .addComponent(jLabel3)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(txtAno, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addComponent(jScrollPane1))
+                    .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btnAdicionar)
                     .addComponent(btnListar))
-                .addContainerGap(70, Short.MAX_VALUE))
+                .addGap(18, 18, 18)
+                .addComponent(btnDeletar)
+                .addContainerGap(29, Short.MAX_VALUE))
         );
 
         pack();
@@ -173,16 +186,37 @@ public class FrmLivro extends javax.swing.JFrame {
     }//GEN-LAST:event_btnAdicionarActionPerformed
 
     private void btnListarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnListarActionPerformed
-        /*
-        List<Livro> livros = livroController.listarLivros();
-        txtLista.setText("");
-        for (Livro livro : livros) {
-            txtLista.append("ID: " + livro.getId() + " | " +
-                            "Título: " + livro.getTitulo() + " | " +
-                            "Autor: " + livro.getAutor() + " | " +
-                            "Ano: " + livro.getAno() + "\n");
-        }*/
+        
+        System.out.println( lista.getSelectedIndex());
+        modelo.clear();
+
+    // Obtém a lista formatada de livros do Controller
+    ArrayList<String> listaLivros = livroController.listarLivros();
+    
+    
+    for (String livro : listaLivros) {
+        modelo.addElement(livro);
+    }
+    
+    
+
+    
+       
     }//GEN-LAST:event_btnListarActionPerformed
+
+    private void btnDeletarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDeletarActionPerformed
+        int index = lista.getSelectedIndex(); // Obtém o índice do item selecionado
+
+    if (index != -1) { // Verifica se algum item está selecionado
+        
+        String mensagem = livroController.deletarLivro(index); // Chama o método no controller
+        JOptionPane.showMessageDialog(null, mensagem); // Exibe a mensagem de retorno
+        
+        
+    } else {
+        JOptionPane.showMessageDialog(null, "Selecione um livro para deletar!");
+    }
+    }//GEN-LAST:event_btnDeletarActionPerformed
 
     /**
      * @param args the command line arguments
@@ -221,14 +255,15 @@ public class FrmLivro extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnAdicionar;
+    private javax.swing.JButton btnDeletar;
     private javax.swing.JButton btnListar;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
-    private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JScrollPane jScrollPane2;
+    private javax.swing.JList<String> lista;
     private javax.swing.JTextField txtAno;
     private javax.swing.JTextField txtAutor;
-    private javax.swing.JTextArea txtLista;
     private javax.swing.JTextField txtTitulo;
     // End of variables declaration//GEN-END:variables
 }
