@@ -27,6 +27,9 @@ A biblioteca tem três métodos principais:
 ## 📝 **Passo a Passo no Java**
 Agora, vamos ver na prática como funciona o **hashing de senha com BCrypt**.
 
+### Primeiro, adicione esta linha dentro de dependencies no build.gradle:
+implementation 'org.mindrot:jbcrypt:0.4'
+
 ### 📌 **1️⃣ Gerar um Hash Seguro**
 ```java
 import org.mindrot.jbcrypt.BCrypt;
