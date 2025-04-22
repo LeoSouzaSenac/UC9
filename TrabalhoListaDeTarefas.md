@@ -46,7 +46,7 @@ Para armazenar as tarefas do **Task Manager**, precisamos de pelo menos uma tabe
 Armazena as tarefas criadas pelos usuários.
 
 ```sql
-CREATE TABLE tarefas (
+CREATE TABLE tasks (
     id INT AUTO_INCREMENT PRIMARY KEY,
     titulo VARCHAR(255) NOT NULL,
     descricao TEXT,
@@ -68,7 +68,7 @@ CREATE TABLE tarefas (
 Se quiser permitir múltiplos usuários no sistema, podemos criar uma tabela de usuários e relacionar as tarefas a um usuário específico.
 
 ```sql
-CREATE TABLE usuarios (
+CREATE TABLE users (
     id INT AUTO_INCREMENT PRIMARY KEY,
     name VARCHAR(100) NOT NULL,
     email VARCHAR(100) UNIQUE NOT NULL,
