@@ -4,25 +4,35 @@ Os grupos desenvolverão um sistema onde os usuários podem adicionar, editar, e
 
 ---
 
-## 📂 **Estrutura do Projeto seguindo o MVC**  
 
+
+## 📂 Estrutura do Projeto - MVC
+
+```
 📁 **taskManager**  
- ├── 📁 `model` →  
- │   ├── `Task.java`
- │   ├── `User.java`
- ├── 📁 `view` 
- │   ├── `MainView.java` *(Tela principal com botões e lista de tarefas)*  
- │   ├── `TaskForm.java` *(Tela para adicionar/editar tarefas/excluir tarefas)*  
- ├── 📁 `controller` 
- │   ├── `TaskController.java`
- │   ├── `UserController.java`
- ├── 📁 `database`
- │    ├── `ConnectionSQL.java`
- │    ├── `CreateTables.java`
- ├── 📁 `dao`
- │    ├── `TaskDAO.java`
- │    ├── `UserDAO.java`
- ├── `Main.java` *(Classe principal para iniciar o programa. Chame a view principal aqui.)*  
+├── 📁 **model**  
+│   ├── `Task.java`  
+│   └── `User.java`  
+│  
+├── 📁 **view**  
+│   ├── `MainView.java`        // Tela principal com botões e lista de tarefas  
+│   └── `TaskForm.java`        // Tela para adicionar/editar/excluir tarefas  
+│  
+├── 📁 **controller**  
+│   ├── `TaskController.java`  
+│   └── `UserController.java`  
+│  
+├── 📁 **database**  
+│   ├── `ConnectionSQL.java`  
+│   └── `CreateTables.java`  
+│  
+├── 📁 **dao**  
+│   ├── `TaskDAO.java`  
+│   └── `UserDAO.java`  
+│  
+└── `Main.java`                // Classe principal que inicia o programa e chama a view principal  
+```
+
 
 ---
 
