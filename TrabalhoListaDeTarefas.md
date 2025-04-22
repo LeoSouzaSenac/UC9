@@ -5,30 +5,34 @@ Os grupos desenvolverão um sistema onde os usuários podem adicionar, editar, e
 ---
 
 ## 📂 **Estrutura do Projeto seguindo o MVC**  
-🟢 **Model (Modelo):** Representa os dados e a lógica do negócio.  
-🔵 **View (Visão):** Interface gráfica para interação do usuário (JavaFX ou Swing).  
-🟠 **Controller (Controlador):** Manipula as interações do usuário e a lógica de aplicação.
 
-📁 **ProjetoMVC_Tasks**  
- ├── 📁 `model` → (Contém as classes que representam os dados)  
- │   ├── `Tarefa.java`  
- │   ├── `TarefaDAO.java` *(Se usar persistência em banco de dados ou arquivo JSON)*  
- ├── 📁 `view` → (Interface gráfica para o usuário)  
+📁 **taskManager**  
+ ├── 📁 `model` →  
+ │   ├── `Task.java`
+ │   ├── `User.java`
+ ├── 📁 `view` 
  │   ├── `MainView.java` *(Tela principal com botões e lista de tarefas)*  
- │   ├── `TarefaForm.java` *(Tela para adicionar/editar tarefas)*  
- ├── 📁 `controller` → (Gerencia a comunicação entre a View e o Model)  
- │   ├── `TarefaController.java`  
- ├── `Main.java` *(Classe principal para iniciar o programa)*  
+ │   ├── `TaskForm.java` *(Tela para adicionar/editar tarefas/excluir tarefas)*  
+ ├── 📁 `controller` 
+ │   ├── `TaskController.java`
+ │   ├── `UserController.java`
+ ├── 📁 `database`
+ │    ├── `ConnectionSQL.java`
+ │    ├── `CreateTables.java`
+ ├── 📁 `dao`
+ │    ├── `TaskDAO.java`
+ │    ├── `UserDAO.java`
+ ├── `Main.java` *(Classe principal para iniciar o programa. Chame a view principal aqui.)*  
 
 ---
 
 ### 📌 **Tabelas Necessárias para o Banco de Dados (SQLite)**  
 
-Para armazenar as tarefas do **Gerenciador de Tarefas**, precisamos de pelo menos uma tabela chamada **`tarefas`**. Se você desejar, também pode adicionar uma tabela de usuários caso o sistema suporte multiusuários.
+Para armazenar as tarefas do **Task Manager**, precisamos de pelo menos uma tabela chamada **`tasks`**. Se você desejar, também pode adicionar uma tabela de usuários caso o sistema suporte multiusuários.
 
 ---
 
-## 🔹 **1. Tabela `tarefas`**  
+## 🔹 **1. Tabela `tasks`**  
 Armazena as tarefas criadas pelos usuários.
 
 ```sql
@@ -43,35 +47,35 @@ CREATE TABLE tarefas (
 
 ### 🛠 **Explicação dos Campos**  
 - **`id`** → Identificador único da tarefa.  
-- **`titulo`** → Nome da tarefa.  
-- **`descricao`** → Detalhes sobre a tarefa.  
-- **`data_vencimento`** → Prazo para concluir a tarefa.  
+- **`title`** → Nome da tarefa.  
+- **`description`** → Detalhes sobre a tarefa.  
+- **`exp_date`** → Prazo para concluir a tarefa.  
 - **`status`** → Define se a tarefa está pendente ou concluída.  
 
 ---
 
-## 🔹 **2. (Opcional) Tabela `usuarios`**  
+## 🔹 **2. (Opcional) Tabela `users`**  
 Se quiser permitir múltiplos usuários no sistema, podemos criar uma tabela de usuários e relacionar as tarefas a um usuário específico.
 
 ```sql
 CREATE TABLE usuarios (
     id INT AUTO_INCREMENT PRIMARY KEY,
-    nome VARCHAR(100) NOT NULL,
+    name VARCHAR(100) NOT NULL,
     email VARCHAR(100) UNIQUE NOT NULL,
-    senha VARCHAR(255) NOT NULL
+    password VARCHAR(255) NOT NULL
 );
 ```
 
 ### 🛠 **Explicação dos Campos**  
 - **`id`** → Identificador único do usuário.  
-- **`nome`** → Nome do usuário.  
+- **`name`** → Nome do usuário.  
 - **`email`** → E-mail único para login.  
-- **`senha`** → Senha do usuário.  
+- **`password`** → Senha do usuário.  
 
 ---
 
 ## 🔹 **3. (Opcional) Relacionamento entre `usuarios` e `tarefas`**  
-Caso cada usuário tenha suas próprias tarefas, lembre que você deve adicionar um campo **`usuario_id`** na tabela `tarefas` e criar uma chave estrangeira.
+Caso cada usuário tenha suas próprias tarefas, lembre que você deve adicionar um campo **`user_id`** na tabela `tasks` e criar uma chave estrangeira.
 Isso garante que cada tarefa pertence a um usuário específico.
 
 ---
@@ -89,7 +93,7 @@ Isso garante que cada tarefa pertence a um usuário específico.
 ## 🛠 **Tecnologias**
 ✅ Java  
 ✅ Java Swing (Interface gráfica)  
-✅ Banco de Dados (SQLite) 
+✅ Banco de Dados (MySQL) 
 
 ---
 
