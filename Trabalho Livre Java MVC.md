@@ -21,7 +21,7 @@ O objetivo deste trabalho é desenvolver um projeto **em Java** seguindo rigoros
   - `database` (conexão com MySQL)
 - Pode ser feito **individualmente** ou **em dupla**.
   - ⚠️ Em caso de dupla, é obrigatório incluir um **CRUD de usuários** no projeto.
-- O projeto deve ser **totalmente em inglês** (nomes de classes, variáveis, métodos, comentários).
+- O projeto deve ser **totalmente em inglês** (nomes de classes, variáveis, métodos).
 - Deve-se utilizar **arquivo `.env`** para armazenar as configurações sensíveis (ex: senha do banco).
 - Uso obrigatório do **banco de dados MySQL**.
 - Uso obrigatório de **tratamento de exceções (`try-catch`) de forma correta**.
