@@ -101,24 +101,35 @@ Para gerar um `.jar` com a classe principal definida, precisamos adicionar um pl
 Aqui está um exemplo completo de `pom.xml` com essa configuração:
 
 ```xml
+<build>
+    <plugins>
+        <plugin>
+    <groupId>org.apache.maven.plugins</groupId>
+    <artifactId>maven-assembly-plugin</artifactId>
+    <version>3.3.0</version>
+    <configuration>
+        <descriptorRefs>
+            <descriptorRef>jar-with-dependencies</descriptorRef>
+        </descriptorRefs>
+        <archive>
+            <manifest>
+                <mainClass>com.mycompany.cepcomapi.CepComApi</mainClass>
+            </manifest>
+        </archive>
+    </configuration>
+    <executions>
+        <execution>
+            <id>make-assembly</id>
+            <phase>package</phase>
+            <goals>
+                <goal>single</goal>
+            </goals>
+        </execution>
+    </executions>
+</plugin>
 
-    <build>
-        <plugins>
-            <plugin>
-                <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-jar-plugin</artifactId>
-                <version>3.2.0</version>
-                <configuration>
-                    <archive>
-                        <manifest>
-                            <mainClass>com.mycompany.cepcomapi.CepComApi</mainClass>
-                        </manifest>
-                    </archive>
-                </configuration>
-            </plugin>
-        </plugins>
-    </build>
-
+    </plugins>
+</build>
 ```
 
 > ⚠️ **Troque** `com.mycompany.cepcomapi.CepComApi` pelo nome completo da sua classe principal, a que tem o `public static void main(String[] args)`.
